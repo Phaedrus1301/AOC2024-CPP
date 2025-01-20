@@ -77,6 +77,7 @@ int main()
 
         if(levels == descendingcopy || levels == ascendingcopy)
         {
+            int repeater { 0 };
             for(int i { 0 }; i < (levels.size() - 1); i++)
             {
                 diff = std::abs(levels[i] - levels[i + 1]);
@@ -99,13 +100,14 @@ int main()
                     //22 20 15 14 12 7
                     //41 41 42 44 49 51 51
                     //both of these should be allowed only once. if it repeats then break.
-                    int repeater { 0 };
+
 
                     repeater += 1;
 
                     if(repeater != 1)
                     {
                         safetyFlag = false;
+                        repeater = 0;
                         break;
                     }
                 }
@@ -113,6 +115,7 @@ int main()
             if(safetyFlag)
             {
                 counter += 1;
+                safetyFlag = false;
             }
         }
         else
@@ -122,6 +125,31 @@ int main()
                 std::cout << lvl << " ";
             }
             std::cout << std::endl;
+            for(int i { 0 }; i < (levels.size() - 1); i++)
+            {
+                int repeater { 0 };
+                diff = std::abs(levels[i] - levels[i + 1]);
+                if(diff > 0 && diff < 4)
+                {
+                    safetyFlag = true;
+                }
+                else
+                {
+                    repeater += 1;
+
+                    if(repeater != 1)
+                    {
+                        safetyFlag = false;
+                        repeater = 0;
+                        break;
+                    }
+                }
+            }
+            if(safetyFlag)
+            {
+                counter += 1;
+            }
+
         }
         total += 1;
     }
