@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1737366764 source:c:\users\admin\documents\codeblockprojects\aoc2024-cpp\aoc2\main.cpp
+	<iostream>
+	<fstream>
+	<vector>
+	<sstream>
+	<algorithm>
+
