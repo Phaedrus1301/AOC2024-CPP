@@ -16,6 +16,23 @@ std::vector<int> split(const std::string& inpoot)
     return words;
 }
 
+bool checkVect(std::vector<int> someVector)
+{
+    int diff { 0 };
+    for(int i = 0; i < someVector.size() - 1; i++)
+    {
+        diff = std::abs(someVector[i] - someVector[i + 1]);
+        if(diff > 0 && diff < 4)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
 int main()
 {
 
@@ -77,7 +94,6 @@ int main()
 
         if(levels == descendingcopy || levels == ascendingcopy)
         {
-            int repeater { 0 };
             for(int i { 0 }; i < (levels.size() - 1); i++)
             {
                 diff = std::abs(levels[i] - levels[i + 1]);
@@ -87,29 +103,8 @@ int main()
                 }
                 else
                 {
-//                    for(auto lvl: levels)
-//                    {
-//                        std::cout << lvl << " ";
-//                    }
-//                    std::cout << std::endl;
-                    //since we're in a sorted list if else, we only need to worry about below 2 conditions.
-                    //diff being greater than 4 or less than 1
-                    //numbers repeating
-                    //66 60 59 58 51 48 45 42
-                    //72 76 79 80 83 85 87 90
-                    //22 20 15 14 12 7
-                    //41 41 42 44 49 51 51
-                    //both of these should be allowed only once. if it repeats then break.
-
-
-                    repeater += 1;
-
-                    if(repeater != 1)
-                    {
-                        safetyFlag = false;
-                        repeater = 0;
-                        break;
-                    }
+                    safetyFlag = false;
+                    break;
                 }
             }
             if(safetyFlag)
@@ -125,31 +120,30 @@ int main()
                 std::cout << lvl << " ";
             }
             std::cout << std::endl;
+            bool once { false };
             for(int i { 0 }; i < (levels.size() - 1); i++)
             {
-                int repeater { 0 };
-                diff = std::abs(levels[i] - levels[i + 1]);
-                if(diff > 0 && diff < 4)
+                diff = levels[i] - levels[i + 1];
+                if((diff > 0 && diff < 4)||(diff > -4 && diff < 0))
                 {
                     safetyFlag = true;
                 }
                 else
                 {
-                    repeater += 1;
-
-                    if(repeater != 1)
+                    std::cout << "diff mismatch " << levels[i] << " " << levels[i+1] << std::endl;
+                    if(once)
                     {
                         safetyFlag = false;
-                        repeater = 0;
                         break;
                     }
+                    once = true;
                 }
             }
+            once = false;
             if(safetyFlag)
             {
                 counter += 1;
             }
-
         }
         total += 1;
     }
